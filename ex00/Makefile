@@ -1,5 +1,5 @@
-NAME = Animal
-SRCS = Conv.cpp Conv.hpp main.cpp
+NAME = Coneverter
+SRCS = Conv.cpp main.cpp
 OBJS = $(SRCS:.cpp=.o)
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
