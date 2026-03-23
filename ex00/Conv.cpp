@@ -52,11 +52,124 @@ void   convertChar(const std::string& literal){
     std::cout << "double: " << static_cast<double>(literal[0]) << std::endl;
 }
 
+void convertInt(const std::string& literal){
+    const char *str = literal.c_str();
+    long result = strtol(str, NULL, 10);
+        if (result < 0 || result > 127)
+            std::cout << "char: impossible" << std::endl;
+        else if (!isprint(result))
+          std::cout << "char: Non displayable" << std::endl;
+        else
+            std::cout << "char: '"<< static_cast<char>(result) << "'" << std::endl;
+        if (result > INT_MAX || result < INT_MIN)
+            std::cout << "int: impossible" << std::endl;
+        else
+            std::cout << "int: " << static_cast<int>(result) << std::endl;
+        std::cout << std::fixed << std::setprecision(1);
+        std::cout << "float: " << static_cast<float>(result) << "f" << std::endl;
+        std::cout << std::fixed << std::setprecision(1);
+        std::cout << "double: " << static_cast<double>(result) << std::endl;
+}
+
+bool Check(const std::string& literal, int i){
+    std::string allowed = "0123456789";
+        size_t pos = literal.find_first_not_of(allowed,i);
+    if (pos == std::string::npos)
+        return true;
+    return false;
+}
+
+bool isFloat(const std::string& literal) {
+    unsigned long i = 0;
+    int dotCount = 0;
+
+    if (literal.length() > 1 && literal[literal.length() - 1] == 'f') {
+        if (literal[i] == '+' || literal[i] == '-')
+            i++;
+        for (; i < literal.length() - 1; i++) {
+            if (literal[i] == '.')
+                dotCount++;
+            else if (!isdigit(literal[i]))
+                return false;
+        }
+        if (dotCount == 1)
+            return true;
+    }    
+    return false;
+}
+void convertFloat(const std::string& literal){
+    const char *str = literal.c_str();
+        float result = static_cast<float>(strtod(str, NULL));
+        if (result < 0 || result > 127)
+            std::cout << "char: impossible" << std::endl;
+        else if (!isprint(static_cast<int>(result)))
+          std::cout << "char: Non displayable" << std::endl;
+        else
+            std::cout << "char: '"<< static_cast<char>(result) << "'" << std::endl;
+        if (static_cast<long>(result) > INT_MAX || static_cast<long>(result) < INT_MIN)
+            std::cout << "int: impossible" << std::endl;
+        else
+            std::cout << "int: " << static_cast<int>(result) << std::endl;
+        std::cout << std::fixed << std::setprecision(1);
+        std::cout << "float: " << static_cast<float>(result) << "f" << std::endl;
+        std::cout << std::fixed << std::setprecision(1);
+        std::cout << "double: " << static_cast<double>(result) << std::endl;
+}
+bool isDouble(const std::string& literal){
+    unsigned long i = 0;
+    int dotCount = 0;
+
+    if (literal.length() > 1) {
+        if (literal[i] == '+' || literal[i] == '-')
+            i++;
+        for (; i < literal.length(); i++) {
+            if (literal[i] == '.')
+                dotCount++;
+            else if (!isdigit(literal[i]))
+                return false;
+        }
+        if (dotCount == 1)
+            return true;
+    }    
+    return false;
+}
+
+void convertDouble(const std::string& literal){
+    const char *str = literal.c_str();
+        double result = strtod(str, NULL);
+        if (result < 0 || result > 127)
+            std::cout << "char: impossible" << std::endl;
+        else if (!isprint(static_cast<int>(result)))
+          std::cout << "char: Non displayable" << std::endl;
+        else
+            std::cout << "char: '"<< static_cast<char>(result) << "'" << std::endl;
+        if (result > INT_MAX || result < INT_MIN)
+            std::cout << "int: impossible" << std::endl;
+        else
+            std::cout << "int: " << static_cast<int>(result) << std::endl;
+        std::cout << std::fixed << std::setprecision(1);
+        std::cout << "float: " << static_cast<float>(result) << "f" << std::endl;
+        std::cout << std::fixed << std::setprecision(1);
+        std::cout << "double: " << static_cast<double>(result) << std::endl;
+}
 
 void  ScalarConverter::convert(const std::string& literal){
     if (convertPseudu(literal))
         return ;
     else if (literal.length() == 1 && !isdigit(literal[0]))
         convertChar(literal);
-    
+    else if ((literal[0] == '+' || literal[0] == '-') && literal.length() > 1 && Check(literal,1))
+        convertInt(literal);
+    else if (Check(literal,0))
+        convertInt(literal);
+    else if (isFloat(literal))
+        convertFloat(literal);
+    else if (isDouble(literal))
+        convertDouble(literal);
+    else {
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+        std::cout << "float: impossible" << std::endl;
+        std::cout << "double: impossible" << std::endl;
+    }
 }
