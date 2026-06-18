@@ -3,21 +3,17 @@
 #include "B.hpp"
 #include "C.hpp"
 Base::~Base() {
-    std::cout << "Base destructor Called" << std::endl;
 }
 Base * generate(void) {
     int random = rand() % 3;
 
     if (random == 0) {
-        std::cout << "Generated: A" << std::endl;
         return new A();
     } 
     else if (random == 1) {
-        std::cout << "Generated: B" << std::endl;
         return new B();
     } 
     else {
-        std::cout << "Generated: C" << std::endl;
         return new C();
     }
 }

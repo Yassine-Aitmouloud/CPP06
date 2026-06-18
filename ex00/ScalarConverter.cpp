@@ -21,8 +21,8 @@ ScalarConverter::~ScalarConverter(){
 }
 
 int   convertPseudu(const std::string& literal){
-    std::string a[] = {"nan", "+inf", "-inf", "nanf", "+inff", "-inff"};
-    for (int i = 0; i < 6; i++){
+    std::string a[] = {"nan", "+inf", "inf" ,"-inf", "nanf", "+inff", "-inff" , "inff"};
+    for (int i = 0; i < 8; i++){
         if (literal == a[i]){
             std::cout << "char: impossible" << std::endl;
             std::cout << "int: impossible" << std::endl;
